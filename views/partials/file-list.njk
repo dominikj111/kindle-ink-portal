@@ -1,0 +1,65 @@
+{# File listing partial — used for full page and AJAX responses #}
+<table id="file-table" cellpadding="0" cellspacing="0" border="0" width="100%">
+  <thead>
+    <tr>
+      <th class="col-name">Name</th>
+      <th class="col-size">Size</th>
+      <th class="col-modified">Modified</th>
+      <th class="col-actions">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% if currentPath %}
+    <tr class="item-folder">
+      <td class="col-name" colspan="4">
+        <a href="../" data-ajax="true">[..] Parent Directory</a>
+      </td>
+    </tr>
+    {% endif %}
+
+    {% for item in items %}
+    <tr class="item-{{ item.category }}">
+      <td class="col-name">
+        <a href="{{ item.href }}" {% if item.isDirectory %}data-ajax="true"{% endif %}>
+          {% if item.isDirectory %}/{% endif %}{{ item.name }}
+        </a>
+      </td>
+      <td class="col-size">
+        {% if item.isDirectory %}&mdash;{% else %}{{ item.size | filesize }}{% endif %}
+      </td>
+      <td class="col-modified">
+        {{ item.modified.toISOString().slice(0, 10) }}
+      </td>
+      <td class="col-actions">
+        {% if not item.isDirectory %}
+          <a href="{{ item.href }}" download>[DL]</a>
+        {% else %}
+          <a href="{{ item.href }}" data-ajax="true">[Open]</a>
+        {% endif %}
+      </td>
+    </tr>
+    {% else %}
+    <tr>
+      <td colspan="4" class="empty-dir">This directory is empty.</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% if totalPages > 1 %}
+<div id="pagination">
+  {% if hasPrev %}
+    <a href="?p={{ prevPage }}" data-ajax="true">[Prev]</a>
+  {% else %}
+    <span class="disabled">[Prev]</span>
+  {% endif %}
+
+  <span class="page-info">Page {{ page }} of {{ totalPages }}</span>
+
+  {% if hasNext %}
+    <a href="?p={{ nextPage }}" data-ajax="true">[Next]</a>
+  {% else %}
+    <span class="disabled">[Next]</span>
+  {% endif %}
+</div>
+{% endif %}

@@ -1,0 +1,208 @@
+{# Pomodoro timer — landscape orientation, big countdown #}
+{% extends "base.njk" %}
+
+{% block title %}Pomodoro - Portal Ink{% endblock %}
+
+{% block head %}
+<style>
+  /* Force landscape-style layout */
+  @media screen {
+    body.pomodoro-page #page {
+      max-width: 100%;
+      padding: 0 16px;
+    }
+    body.pomodoro-page #site-header {
+      padding-bottom: 2px;
+      margin-bottom: 4px;
+    }
+    body.pomodoro-page #site-footer {
+      display: none;
+    }
+  }
+
+  /* Timer layout — centered, big */
+  #pomodoro {
+    text-align: center;
+    padding: 8px 0;
+  }
+
+  #pom-mode {
+    font-size: 1.5em;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 4px;
+  }
+
+  #pom-countdown {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 6em;
+    font-weight: bold;
+    line-height: 1.1;
+    letter-spacing: 4px;
+    margin: 8px 0;
+  }
+
+  #pom-session-info {
+    font-size: 1.1em;
+    margin-bottom: 12px;
+    color: #666;
+  }
+
+  /* Progress bar — simple horizontal bar */
+  #pom-progress-wrap {
+    width: 80%;
+    max-width: 500px;
+    height: 16px;
+    border: 2px solid #000;
+    margin: 8px auto 12px;
+    background: #fff;
+  }
+
+  #pom-progress-bar {
+    height: 100%;
+    width: 0%;
+    background: #000;
+  }
+
+  .theme-color #pom-progress-bar {
+    background: #cc2200;
+  }
+
+  .theme-color .pom-break #pom-progress-bar {
+    background: #008800;
+  }
+
+  /* Session dots — show completed pomodoros */
+  #pom-dots {
+    margin: 8px 0 16px;
+    font-size: 1.4em;
+    letter-spacing: 6px;
+  }
+
+  .dot-done {
+    font-weight: bold;
+  }
+
+  .dot-empty {
+    color: #ccc;
+  }
+
+  .theme-color .dot-done {
+    color: #cc2200;
+  }
+
+  /* Buttons row */
+  #pom-controls {
+    margin: 12px 0;
+  }
+
+  #pom-controls .btn {
+    font-size: 1.2em;
+    padding: 12px 24px;
+    min-width: 100px;
+    margin: 4px 8px;
+  }
+
+  /* Settings row */
+  #pom-settings {
+    margin-top: 16px;
+    padding-top: 8px;
+    border-top: 1px solid #ccc;
+    font-size: 0.9em;
+  }
+
+  #pom-settings table {
+    margin: 0 auto;
+    table-layout: fixed;
+    width: 80%;
+    max-width: 400px;
+  }
+
+  #pom-settings td {
+    padding: 6px 4px;
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  #pom-settings td:first-child {
+    text-align: right;
+    font-weight: bold;
+  }
+
+  #pom-settings .btn {
+    font-size: 0.9em;
+    padding: 4px 10px;
+    min-width: 30px;
+  }
+
+  .pom-time-val {
+    font-weight: bold;
+    font-size: 1.1em;
+    min-width: 30px;
+    display: inline-block;
+  }
+</style>
+{% endblock %}
+
+{% block header_nav %}
+  <nav id="breadcrumbs">
+    <a href="/" data-ajax="true">[Root]</a> &gt; Pomodoro
+  </nav>
+{% endblock %}
+
+{% block content %}
+  <div id="pomodoro">
+
+    <div id="pom-mode">WORK</div>
+
+    <div id="pom-countdown">25:00</div>
+
+    <div id="pom-progress-wrap">
+      <div id="pom-progress-bar"></div>
+    </div>
+
+    <div id="pom-session-info">Session 1 of 4</div>
+
+    <div id="pom-dots">
+      <span class="dot-empty">*</span>
+      <span class="dot-empty">*</span>
+      <span class="dot-empty">*</span>
+      <span class="dot-empty">*</span>
+    </div>
+
+    <div id="pom-controls">
+      <a href="#" id="btn-pom-start" class="btn">[ Start ]</a>
+      <a href="#" id="btn-pom-pause" class="btn">[ Pause ]</a>
+      <a href="#" id="btn-pom-reset" class="btn">[ Reset ]</a>
+      <a href="#" id="btn-pom-skip" class="btn">[ Skip ]</a>
+    </div>
+
+    <div id="pom-settings">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td width="40%">Work</td>
+          <td width="20%"><a href="#" id="btn-work-down" class="btn">-</a></td>
+          <td width="20%"><span id="pom-work-val" class="pom-time-val">25</span></td>
+          <td width="20%"><a href="#" id="btn-work-up" class="btn">+</a></td>
+        </tr>
+        <tr>
+          <td>Break</td>
+          <td><a href="#" id="btn-break-down" class="btn">-</a></td>
+          <td><span id="pom-break-val" class="pom-time-val">5</span></td>
+          <td><a href="#" id="btn-break-up" class="btn">+</a></td>
+        </tr>
+        <tr>
+          <td>Long Break</td>
+          <td><a href="#" id="btn-long-down" class="btn">-</a></td>
+          <td><span id="pom-long-val" class="pom-time-val">15</span></td>
+          <td><a href="#" id="btn-long-up" class="btn">+</a></td>
+        </tr>
+      </table>
+    </div>
+
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  <script src="/js/pomodoro.js"></script>
+{% endblock %}

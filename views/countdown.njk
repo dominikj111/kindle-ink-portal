@@ -1,0 +1,206 @@
+{# Simple countdown timer — landscape, big digits #}
+{% extends "base.njk" %}
+
+{% block title %}Countdown - Portal Ink{% endblock %}
+
+{% block head %}
+<style>
+  /* Force landscape-style layout */
+  @media screen {
+    body.countdown-page #page {
+      max-width: 100%;
+      padding: 0 16px;
+    }
+    body.countdown-page #site-header {
+      padding-bottom: 2px;
+      margin-bottom: 4px;
+    }
+    body.countdown-page #site-footer {
+      display: none;
+    }
+  }
+
+  #countdown {
+    text-align: center;
+    padding: 8px 0;
+  }
+
+  #cd-label {
+    font-size: 1.3em;
+    margin-bottom: 4px;
+    color: #666;
+  }
+
+  #cd-display {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 7em;
+    font-weight: bold;
+    line-height: 1.1;
+    letter-spacing: 4px;
+    margin: 12px 0;
+  }
+
+  #cd-display.cd-done {
+    letter-spacing: 2px;
+  }
+
+  /* Progress bar */
+  #cd-progress-wrap {
+    width: 80%;
+    max-width: 500px;
+    height: 16px;
+    border: 2px solid #000;
+    margin: 12px auto;
+    background: #fff;
+  }
+
+  #cd-progress-bar {
+    height: 100%;
+    width: 0%;
+    background: #000;
+  }
+
+  .theme-color #cd-progress-bar {
+    background: #0033cc;
+  }
+
+  .theme-color .cd-warning #cd-progress-bar {
+    background: #cc8800;
+  }
+
+  .theme-color .cd-urgent #cd-progress-bar {
+    background: #cc2200;
+  }
+
+  /* Controls */
+  #cd-controls {
+    margin: 16px 0;
+  }
+
+  #cd-controls .btn {
+    font-size: 1.2em;
+    padding: 12px 24px;
+    min-width: 100px;
+    margin: 4px 8px;
+  }
+
+  /* Time setter */
+  #cd-setter {
+    margin: 16px auto;
+    max-width: 500px;
+  }
+
+  #cd-setter table {
+    margin: 0 auto;
+    table-layout: fixed;
+    width: 100%;
+  }
+
+  #cd-setter th {
+    text-align: center;
+    font-size: 0.85em;
+    padding-bottom: 4px;
+    color: #666;
+  }
+
+  #cd-setter td {
+    text-align: center;
+    padding: 4px;
+    vertical-align: middle;
+  }
+
+  #cd-setter .btn {
+    font-size: 1em;
+    padding: 6px 14px;
+    min-width: 36px;
+  }
+
+  .cd-digit {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 2em;
+    font-weight: bold;
+    display: inline-block;
+    min-width: 50px;
+  }
+
+  /* Presets */
+  #cd-presets {
+    margin: 12px 0;
+  }
+
+  #cd-presets .btn {
+    margin: 4px 4px;
+    font-size: 1em;
+    padding: 8px 16px;
+  }
+</style>
+{% endblock %}
+
+{% block header_nav %}
+  <nav id="breadcrumbs">
+    <a href="/" data-ajax="true">[Root]</a> &gt; Countdown
+  </nav>
+{% endblock %}
+
+{% block content %}
+  <div id="countdown">
+
+    <div id="cd-label">Set time and press Start</div>
+
+    <div id="cd-display">00:00:00</div>
+
+    <div id="cd-progress-wrap">
+      <div id="cd-progress-bar"></div>
+    </div>
+
+    <div id="cd-setter">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <thead>
+          <tr>
+            <th>Hours</th>
+            <th>Minutes</th>
+            <th>Seconds</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><a href="#" id="btn-h-up" class="btn">+</a></td>
+            <td><a href="#" id="btn-m-up" class="btn">+</a></td>
+            <td><a href="#" id="btn-s-up" class="btn">+</a></td>
+          </tr>
+          <tr>
+            <td><span id="cd-hours" class="cd-digit">00</span></td>
+            <td><span id="cd-minutes" class="cd-digit">05</span></td>
+            <td><span id="cd-seconds" class="cd-digit">00</span></td>
+          </tr>
+          <tr>
+            <td><a href="#" id="btn-h-down" class="btn">-</a></td>
+            <td><a href="#" id="btn-m-down" class="btn">-</a></td>
+            <td><a href="#" id="btn-s-down" class="btn">-</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div id="cd-presets">
+      <a href="#" class="btn" data-preset="60">[ 1 min ]</a>
+      <a href="#" class="btn" data-preset="180">[ 3 min ]</a>
+      <a href="#" class="btn" data-preset="300">[ 5 min ]</a>
+      <a href="#" class="btn" data-preset="600">[ 10 min ]</a>
+      <a href="#" class="btn" data-preset="900">[ 15 min ]</a>
+      <a href="#" class="btn" data-preset="1800">[ 30 min ]</a>
+      <a href="#" class="btn" data-preset="3600">[ 1 hr ]</a>
+    </div>
+
+    <div id="cd-controls">
+      <a href="#" id="btn-cd-start" class="btn">[ Start ]</a>
+      <a href="#" id="btn-cd-pause" class="btn">[ Pause ]</a>
+      <a href="#" id="btn-cd-reset" class="btn">[ Reset ]</a>
+    </div>
+
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  <script src="/js/countdown.js"></script>
+{% endblock %}

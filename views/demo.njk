@@ -1,0 +1,124 @@
+{# E-ink refresh demo page #}
+{% extends "base.njk" %}
+
+{% block title %}Refresh Demo - Portal Ink{% endblock %}
+
+{% block header_nav %}
+  <nav id="breadcrumbs">
+    <a href="/" data-ajax="true">[Root]</a> &gt; Refresh Demo
+  </nav>
+{% endblock %}
+
+{% block content %}
+  <div id="refresh-demo">
+    <h2>E-Ink Refresh Demo</h2>
+    <p>Test how different levels of screen change affect e-ink refresh behavior.</p>
+
+    <hr>
+
+    {# --- Test 1: Single character change --- #}
+    <h3>1. Tiny Change (single element)</h3>
+    <p>Only one small element updates. Should trigger minimal partial refresh.</p>
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+      <tr>
+        <td width="60%">Counter value:</td>
+        <td width="40%" id="demo-counter" style="text-align:right;font-size:1.5em;font-weight:bold">0</td>
+      </tr>
+    </table>
+    <p class="demo-buttons">
+      <a href="#" id="btn-increment" class="btn">[  +1  ]</a>
+      <a href="#" id="btn-decrement" class="btn">[  -1  ]</a>
+      <a href="#" id="btn-reset" class="btn">[ Reset ]</a>
+    </p>
+
+    <hr>
+
+    {# --- Test 2: Single row swap --- #}
+    <h3>2. Small Change (one table row)</h3>
+    <p>Replaces one row in a table. Rest of the screen stays identical.</p>
+    <table id="demo-row-table" cellpadding="0" cellspacing="0" border="0" width="100%">
+      <thead>
+        <tr>
+          <th style="text-align:left">Item</th>
+          <th style="text-align:right">Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Alpha</td><td style="text-align:right">100</td></tr>
+        <tr id="demo-swap-row"><td>Beta</td><td style="text-align:right">200</td></tr>
+        <tr><td>Gamma</td><td style="text-align:right">300</td></tr>
+        <tr><td>Delta</td><td style="text-align:right">400</td></tr>
+        <tr><td>Epsilon</td><td style="text-align:right">500</td></tr>
+      </tbody>
+    </table>
+    <p class="demo-buttons"><a href="#" id="btn-swap-row" class="btn">[ Swap Middle Row ]</a></p>
+
+    <hr>
+
+    {# --- Test 3: Toggle visibility --- #}
+    <h3>3. Medium Change (show/hide block)</h3>
+    <p>Toggles a block of text. Content below shifts position.</p>
+    <div id="demo-toggle-block" style="display:none;border:2px solid #000;padding:8px;margin:8px 0">
+      <p><b>This block is now visible.</b></p>
+      <p>When this appears, everything below it shifts down.</p>
+      <p>When it hides, everything shifts back up.</p>
+      <p>Watch how the e-ink display handles the reflow.</p>
+    </div>
+    <p class="demo-buttons"><a href="#" id="btn-toggle" class="btn">[ Toggle Block ]</a></p>
+
+    <hr>
+
+    {# --- Test 4: Replace all table rows --- #}
+    <h3>4. Large Change (full table body swap)</h3>
+    <p>Replaces all rows in a table, like pagination. Header stays the same.</p>
+    <table id="demo-page-table" cellpadding="0" cellspacing="0" border="0" width="100%">
+      <thead>
+        <tr>
+          <th style="text-align:left">Name</th>
+          <th style="text-align:right">Size</th>
+          <th style="text-align:right">Date</th>
+        </tr>
+      </thead>
+      <tbody id="demo-page-tbody">
+        <tr><td>file-001.txt</td><td style="text-align:right">1.2 KB</td><td style="text-align:right">2026-01-01</td></tr>
+        <tr><td>file-002.txt</td><td style="text-align:right">3.4 KB</td><td style="text-align:right">2026-01-02</td></tr>
+        <tr><td>file-003.txt</td><td style="text-align:right">5.6 KB</td><td style="text-align:right">2026-01-03</td></tr>
+        <tr><td>file-004.txt</td><td style="text-align:right">7.8 KB</td><td style="text-align:right">2026-01-04</td></tr>
+        <tr><td>file-005.txt</td><td style="text-align:right">9.0 KB</td><td style="text-align:right">2026-01-05</td></tr>
+      </tbody>
+    </table>
+    <p class="demo-buttons">
+      <a href="#" id="btn-prev-page" class="btn">[ Prev ]</a>
+      <span id="demo-page-info">Page 1 of 3</span>
+      <a href="#" id="btn-next-page" class="btn">[ Next ]</a>
+    </p>
+
+    <hr>
+
+    {# --- Test 5: Invert colors --- #}
+    <h3>5. Full Screen Change (invert all pixels)</h3>
+    <p>Inverts black/white across the entire page. Guarantees full refresh.</p>
+    <p class="demo-buttons"><a href="#" id="btn-invert" class="btn">[ Invert Colors ]</a></p>
+
+    <hr>
+
+    {# --- Test 6: Timed auto-update --- #}
+    <h3>6. Auto-Update (clock)</h3>
+    <p>Updates a single element every second. Observe ghosting accumulation.</p>
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+      <tr>
+        <td width="70%">Current time:</td>
+        <td width="30%" id="demo-clock" style="text-align:right;font-weight:bold">--:--:--</td>
+      </tr>
+    </table>
+    <p class="demo-buttons">
+      <a href="#" id="btn-clock-start" class="btn">[ Start ]</a>
+      <a href="#" id="btn-clock-stop" class="btn">[ Stop ]</a>
+    </p>
+
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  <script src="/js/demo.js"></script>
+{% endblock %}

@@ -1,0 +1,16 @@
+{# AJAX response partial — includes breadcrumbs + file list for seamless swap #}
+<nav id="breadcrumbs">
+  <a href="/" data-ajax="true">[Root]</a>
+  {% if currentPath %}
+    {% set parts = currentPath.split('/') %}
+    {% set href = '' %}
+    {% for part in parts %}
+      {% if part %}
+        {% set href = href + '/' + part %}
+        &gt; <a href="{{ href }}/" data-ajax="true">{{ part }}</a>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+</nav>
+
+{% include "partials/file-list.njk" %}

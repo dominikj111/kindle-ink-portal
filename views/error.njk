@@ -1,0 +1,12 @@
+{# Error page template #}
+{% extends "base.njk" %}
+
+{% block title %}{{ statusCode }} - {{ title }}{% endblock %}
+
+{% block content %}
+  <div id="error-page">
+    <h2>{{ statusCode }} &mdash; {{ title }}</h2>
+    <p>{{ message }}</p>
+    <p><a href="/">[Back to Root]</a></p>
+  </div>
+{% endblock %}

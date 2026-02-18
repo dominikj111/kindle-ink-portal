@@ -1,0 +1,34 @@
+{# Base layout — all pages extend this #}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Portal Ink{% endblock %}</title>
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="{{ themeCss }}">
+  {% block head %}{% endblock %}
+</head>
+<body class="{{ themeClass }}">
+  <div id="page">
+    <header id="site-header">
+      <h1><a href="/">Portal Ink</a></h1>
+      <nav id="site-nav">
+        <a href="/">[Browse]</a> | <a href="/pomodoro">[Pomodoro]</a> | <a href="/countdown">[Countdown]</a> | <a href="/demo">[Refresh Demo]</a>
+      </nav>
+      {% block header_nav %}{% endblock %}
+    </header>
+
+    <main id="content">
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer id="site-footer">
+      <p>Portal Ink &mdash; E-Ink File Browser</p>
+    </footer>
+  </div>
+
+  <script src="/js/bundle.js"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

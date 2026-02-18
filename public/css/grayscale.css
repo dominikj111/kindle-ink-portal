@@ -1,0 +1,66 @@
+/* Grayscale theme — Kindle Paperwhite, Kindle 5 */
+/* Monochrome-first: black, white, and grays only */
+
+body.theme-grayscale {
+  background: #fff;
+  color: #000;
+}
+
+.theme-grayscale a {
+  color: #000;
+  font-weight: bold;
+}
+
+.theme-grayscale a:visited {
+  color: #333;
+}
+
+.theme-grayscale #site-header {
+  border-bottom-color: #000;
+}
+
+.theme-grayscale #file-table th {
+  background: #e0e0e0;
+  border-bottom-color: #000;
+}
+
+.theme-grayscale #file-table td {
+  border-bottom-color: #ddd;
+}
+
+.theme-grayscale #file-table tr:hover td {
+  background: #eee;
+}
+
+/* Category indicators — borders only, no color */
+.theme-grayscale .item-folder td:first-child {
+  border-left: 3px solid #000;
+}
+
+.theme-grayscale .item-document td:first-child {
+  border-left: 3px solid #666;
+}
+
+.theme-grayscale .item-image td:first-child,
+.theme-grayscale .item-audio td:first-child,
+.theme-grayscale .item-video td:first-child {
+  border-left: 3px solid #999;
+}
+
+.theme-grayscale .item-archive td:first-child {
+  border-left: 3px solid #aaa;
+}
+
+.theme-grayscale .item-code td:first-child,
+.theme-grayscale .item-text td:first-child {
+  border-left: 3px solid #bbb;
+}
+
+.theme-grayscale #pagination .disabled {
+  color: #aaa;
+}
+
+.theme-grayscale #site-footer {
+  color: #666;
+  border-top-color: #ccc;
+}
