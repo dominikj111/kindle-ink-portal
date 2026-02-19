@@ -27,7 +27,7 @@
     "nunjucks",
     "express"
   ],
-  "license": "MIT",
+  "license": "UNLICENSED",
   "dependencies": {
     "cookie-parser": "^1.4.7",
     "express": "^5.2.1",

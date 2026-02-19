@@ -4,9 +4,16 @@ A Kindle-optimized web dashboard built with Node.js, TypeScript, and server-side
 
 Originally built as an exploration of what a retired Kindle Paperwhite can do as a desk tool.
 
-<div style="width: 100%; text-align: center">
-<img src="docs/countdown-example.png" alt="Countdown timer on Kindle" style="border: 2px solid black; width: 50%;">
-</div>
+<!-- markdownlint-disable MD033 -->
+<p align="center">
+    <table border="1" width="50%">
+        <tr>
+            <td>
+                <img src="docs/countdown-example.png" alt="Countdown timer on Kindle">
+            </td>
+        </tr>
+    </table>
+</p>
 
 ---
 
@@ -99,7 +106,7 @@ Switch theme by POSTing to `/api/theme` with `{ "theme": "color" }`, or set the 
 
 ## Project structure
 
-```
+```()
 src/
   server.ts           # Express app entry point
   middleware/
@@ -177,9 +184,3 @@ pnpm lint           # ESLint
 pnpm format         # Prettier
 pnpm clean          # Remove dist/ and public/js/
 ```
-
----
-
-## License
-
-MIT
