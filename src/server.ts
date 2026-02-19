@@ -11,6 +11,7 @@ import { apiRouter } from './routes/api.js';
 import { demoRouter } from './routes/demo.js';
 import { pomodoroRouter } from './routes/pomodoro.js';
 import { countdownRouter } from './routes/countdown.js';
+import { benchRouter } from './routes/bench.js';
 import { errorHandler, notFoundHandler } from './middleware/errors.js';
 
 const app: ReturnType<typeof express> = express();
@@ -52,6 +53,7 @@ app.use('/api', apiRouter);
 app.use('/demo', demoRouter);
 app.use('/pomodoro', pomodoroRouter);
 app.use('/countdown', countdownRouter);
+app.use('/bench', benchRouter);
 app.use('/', browseRouter);
 
 // --- Error handling ---

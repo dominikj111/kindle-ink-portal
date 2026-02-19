@@ -4,7 +4,9 @@ A Kindle-optimized web dashboard built with Node.js, TypeScript, and server-side
 
 Originally built as an exploration of what a retired Kindle Paperwhite can do as a desk tool.
 
+<div style="width: 100%; text-align: center">
 <img src="docs/countdown-example.png" alt="Countdown timer on Kindle" style="border: 2px solid black; width: 50%;">
+</div>
 
 ---
 
@@ -15,6 +17,7 @@ Originally built as an exploration of what a retired Kindle Paperwhite can do as
 | `/`          | File browser — paginated directory listing, AJAX navigation         |
 | `/pomodoro`  | Pomodoro timer — work/break cycles, session tracking                |
 | `/countdown` | Countdown timer — presets + custom HH:MM:SS input                   |
+| `/bench`     | JS benchmark — 6 tests with reference times for comparable devices  |
 | `/demo`      | E-ink refresh demo — 6 tests showing different screen change levels |
 
 ---
@@ -109,6 +112,7 @@ src/
     api.ts            # POST /api/log, POST /api/theme
     pomodoro.ts       # GET /pomodoro
     countdown.ts      # GET /countdown
+    bench.ts          # GET /bench
     demo.ts           # GET /demo
   services/
     files.ts          # listDirectory(), getBrowseRoot()
@@ -122,6 +126,7 @@ client/
   pomodoro.ts         # Pomodoro timer logic
   countdown.ts        # Countdown timer logic
   demo.ts             # Refresh demo interactions
+  bench.ts            # JS benchmark runner
 
 views/
   base.njk            # Base layout

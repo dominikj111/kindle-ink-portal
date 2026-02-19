@@ -1,0 +1,104 @@
+{% extends "base.njk" %}
+
+{% block title %}JS Benchmark — Portal Ink{% endblock %}
+
+{% block content %}
+<h2>JS Benchmark</h2>
+
+<p>Measures key JavaScript operations on this device. All tests run sequentially in the browser. <strong>Lower time = faster.</strong></p>
+
+<p id="bench-status">Press Run to start.</p>
+
+<p><button class="btn" id="btn-run-bench">[Run All Benchmarks]</button></p>
+
+<table id="bench-table">
+  <thead>
+    <tr>
+      <th>Benchmark</th>
+      <th>This device</th>
+      <th>Apple M3 Pro</th>
+      <th>RPi 4 B+</th>
+      <th>AO 725</th>
+      <th>SM-J530F</th>
+      <th>Kindle 5.9.7</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Arithmetic (10M ops)</td>
+      <td id="bench-arithmetic-device">&mdash;</td>
+      <td>169ms</td>
+      <td>245ms</td>
+      <td>1843ms</td>
+      <td>959ms</td>
+      <td>3777ms</td>
+    </tr>
+    <tr>
+      <td>Sort (10k &times; 50 rounds)</td>
+      <td id="bench-sort-device">&mdash;</td>
+      <td>93ms</td>
+      <td>650ms</td>
+      <td>413ms</td>
+      <td>233ms</td>
+      <td>675ms</td>
+    </tr>
+    <tr>
+      <td>String concat (50k chars)</td>
+      <td id="bench-string-device">&mdash;</td>
+      <td>0.2ms</td>
+      <td>10ms</td>
+      <td>2.0ms</td>
+      <td>8.0ms</td>
+      <td>59ms</td>
+    </tr>
+    <tr>
+      <td>DOM (500 nodes &times; 10 rounds)</td>
+      <td id="bench-dom-device">&mdash;</td>
+      <td>7.5ms</td>
+      <td>149ms</td>
+      <td>61ms</td>
+      <td>77ms</td>
+      <td>271ms</td>
+    </tr>
+    <tr>
+      <td>JSON stringify+parse (1k &times; 100)</td>
+      <td id="bench-json-device">&mdash;</td>
+      <td>37ms</td>
+      <td>143ms</td>
+      <td>380ms</td>
+      <td>460ms</td>
+      <td>2343ms</td>
+    </tr>
+    <tr>
+      <td>RegExp (10k strings)</td>
+      <td id="bench-regexp-device">&mdash;</td>
+      <td>1.4ms</td>
+      <td>6.7ms</td>
+      <td>4.0ms</td>
+      <td>5.0ms</td>
+      <td>36ms</td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <th>Total</th>
+      <td id="total-device">&mdash;</td>
+      <td>308ms</td>
+      <td>1204ms</td>
+      <td>2703ms</td>
+      <td>1742ms</td>
+      <td>7161ms</td>
+    </tr>
+  </tfoot>
+</table>
+
+<p><small>Reference values are rough averages from a few casual runs on each device — not rigorous benchmarks. They show relative device differences, not precise measurements.</small></p>
+
+{# Hidden element that receives the computation sink checksum.            #}
+{# Its existence forces the JS engine to actually execute each benchmark. #}
+<span id="bench-sink" style="display:none"></span>
+{% endblock %}
+
+{% block scripts %}
+<script src="/js/bench.js"></script>
+{% endblock %}

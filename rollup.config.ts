@@ -99,4 +99,28 @@ export default defineConfig([
       }),
     ],
   },
+  {
+    input: 'client/bench.ts',
+    output: {
+      file: 'public/js/bench.js',
+      format: 'iife',
+      name: 'PortalInkBench',
+      sourcemap: true,
+    },
+    plugins: [
+      typescript({
+        tsconfig: 'tsconfig.client.json',
+      }),
+      terser({
+        ecma: 3,
+        ie8: true,
+        compress: {
+          ie8: true,
+        },
+        mangle: {
+          ie8: true,
+        },
+      }),
+    ],
+  },
 ]);

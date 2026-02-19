@@ -250,30 +250,35 @@
     };
   }
 
-  // --- No-Sleep (silent looping audio keeps screen awake) ---
-  // Classic nosleep.js technique: loop a tiny silent audio clip so the
-  // Kindle OS treats the page as "playing media" and delays auto-sleep.
+  // --- No-Sleep -----------------------------------------------------------
+  // Micro-scroll every 5 seconds — the only sleep-prevention trick that
+  // doesn't risk breaking old WebKit / Kindle Silk.
+  //
+  // NOTE: Kindle 5.9.x has a hard 10-minute OS-level sleep timer that
+  // CANNOT be overridden from the browser. No JS trick (audio, video,
+  // scrolling, canvas, rAF) can prevent it. If you need longer timers,
+  // keep the Kindle plugged in via USB — some firmware versions stay
+  // awake while charging.
   var noSleep = (function () {
-    // Minimal silent WAV: RIFF header + fmt chunk + 0-byte data chunk
-    var SILENT_WAV =
-      'data:audio/wav;base64,' +
-      'UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA=';
-    var audio: HTMLAudioElement | null = null;
+    var scrollInterval: number | null = null;
 
     return {
       enable: function () {
-        if (!audio) {
-          audio = document.createElement('audio');
-          audio.setAttribute('loop', 'loop');
-          audio.setAttribute('muted', 'muted');
-          audio.src = SILENT_WAV;
-          audio.style.cssText = 'position:absolute;width:0;height:0;opacity:0';
-          document.body.appendChild(audio);
+        if (!scrollInterval) {
+          scrollInterval = window.setInterval(function () {
+            try {
+              window.scrollBy(0, 1);
+              window.scrollBy(0, -1);
+            } catch (e) { /* ignore */ }
+          }, 5000);
         }
-        try { audio.play(); } catch (e) { /* ignore */ }
       },
+
       disable: function () {
-        if (audio) { audio.pause(); }
+        if (scrollInterval !== null) {
+          window.clearInterval(scrollInterval);
+          scrollInterval = null;
+        }
       }
     };
   })();
