@@ -5,15 +5,13 @@ A Kindle-optimized web dashboard built with Node.js, TypeScript, and server-side
 Originally built as an exploration of what a retired Kindle Paperwhite can do as a desk tool.
 
 <!-- markdownlint-disable MD033 -->
-<p align="center">
-    <table border="1" width="50%">
-        <tr>
-            <td>
-                <img src="docs/countdown-example.png" alt="Countdown timer on Kindle">
-            </td>
-        </tr>
-    </table>
-</p>
+<table border="1">
+    <tr>
+        <td>
+            <img src="docs/countdown-example.png" alt="Countdown timer on Kindle">
+        </td>
+    </tr>
+</table>
 
 ---
 
